@@ -82,14 +82,15 @@ def straighten_to_line():
     # turn off headlights
     CutebotPro.turn_off_all_headlights()
 
-def detect_line():
+def detect_line(act):
     # get the line tracking offset
     error = CutebotPro.get_offset()
     line = 0
     # detects black line
     if abs(error) < 3000:
         CutebotPro.pwm_cruise_control(0, 0)
-        straighten_to_line()
+        if act == 0:
+            straighten_to_line()
         line = 1
     return line
 
@@ -226,12 +227,15 @@ def turn_right():
     CutebotPro.trolley_steering(CutebotProTurn.RIGHT_IN_PLACE, 90)
     basic.pause(100)
 
-
+#only run the line straightener the first time:
+activate_line_straight = 0
 def move_forward():
     CutebotPro.pwm_cruise_control(20, 20)
     line_found = 0
     while line_found == 0:
-        line_found = detect_line()
+        line_found = detect_line(activate_line_straight)
+        # line straightener will never activate again
+        activate_line_straight = 1
     CutebotPro.distance_running(CutebotProOrientation.ADVANCE, 20, CutebotProDistanceUnits.CM)
     basic.pause(100)
 

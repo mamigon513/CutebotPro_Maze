@@ -83,14 +83,17 @@ function straighten_to_line() {
     CutebotPro.turnOffAllHeadlights()
 }
 
-function detect_line(): number {
+function detect_line(act: number): number {
     //  get the line tracking offset
     let error = CutebotPro.getOffset()
     let line = 0
     //  detects black line
     if (Math.abs(error) < 3000) {
         CutebotPro.pwmCruiseControl(0, 0)
-        straighten_to_line()
+        if (act == 0) {
+            straighten_to_line()
+        }
+        
         line = 1
     }
     
@@ -231,11 +234,16 @@ function turn_right() {
     basic.pause(100)
 }
 
+// only run the line straightener the first time:
+let activate_line_straight = 0
 function move_forward() {
+    let activate_line_straight: number;
     CutebotPro.pwmCruiseControl(20, 20)
     let line_found = 0
     while (line_found == 0) {
-        line_found = detect_line()
+        line_found = detect_line(activate_line_straight)
+        //  line straightener will never activate again
+        activate_line_straight = 1
     }
     CutebotPro.distanceRunning(CutebotProOrientation.Advance, 20, CutebotProDistanceUnits.Cm)
     basic.pause(100)
