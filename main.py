@@ -83,6 +83,7 @@ def detect_line(act):
     # detects black line
     if abs(error) < 3000:
         CutebotPro.pwm_cruise_control(0, 0)
+        basic.pause(100)
         if act == 0:
             straighten_to_line()
         line = 1
