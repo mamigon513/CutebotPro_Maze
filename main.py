@@ -3,8 +3,8 @@
 
 def magnet_detect():
     mag = 0
-    force = abs(input.magnetic_force(Dimension.Y))
-    if force >= 500:
+    force = abs(input.magnetic_force(Dimension.Z))
+    if force >= 400:
         mag = 1
          # turn headlights green
         CutebotPro.color_light(CutebotProRGBLight.RGBL, 0x00ff00)
@@ -35,6 +35,7 @@ def missionImpossibleMusic(bpm):
         music.PlaybackMode.UNTIL_DONE)
 
 def onIn_background():
+    music.set_volume(50)
     missionImpossibleMusic(350)
     pass
 #control.in_background(onIn_background)
@@ -50,7 +51,7 @@ def straighten_to_line():
     CutebotPro.single_headlights(CutebotProRGBLight.RGBL, 247, 25, 236)
     CutebotPro.single_headlights(CutebotProRGBLight.RGBR, 247, 25, 236)
     #keep turning till we are straight
-    while(abs(error) > 0 and count < 50):
+    while(abs(error) > 0 and count < 15):
         # update count of while loop iterations so we can prevent getting stuck
         count = count + 1
         #get offset

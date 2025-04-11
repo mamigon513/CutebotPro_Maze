@@ -6,8 +6,8 @@ let right: number;
 // magnet checking function
 function magnet_detect(): number {
     let mag = 0
-    let force = Math.abs(input.magneticForce(Dimension.Y))
-    if (force >= 500) {
+    let force = Math.abs(input.magneticForce(Dimension.Z))
+    if (force >= 400) {
         mag = 1
         //  turn headlights green
         CutebotPro.colorLight(CutebotProRGBLight.RGBL, 0x00ff00)
@@ -32,6 +32,7 @@ function missionImpossibleMusic(bpm: number) {
 }
 
 function onIn_background() {
+    music.setVolume(50)
     missionImpossibleMusic(350)
     
 }
@@ -47,7 +48,7 @@ function straighten_to_line() {
     CutebotPro.singleHeadlights(CutebotProRGBLight.RGBL, 247, 25, 236)
     CutebotPro.singleHeadlights(CutebotProRGBLight.RGBR, 247, 25, 236)
     // keep turning till we are straight
-    while (Math.abs(error) > 0 && count < 50) {
+    while (Math.abs(error) > 0 && count < 15) {
         //  update count of while loop iterations so we can prevent getting stuck
         count = count + 1
         // get offset
