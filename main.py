@@ -186,7 +186,7 @@ while (magnet_detect() == 0):
 #stop robot
 CutebotPro.pwm_cruise_control(0, 0)
 basic.pause(100)
-CutebotPro.turn_off_all_headlights()
+CutebotPro.turn_off_all_headlights() 
 
 
 ## START MAZE
