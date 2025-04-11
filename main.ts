@@ -84,7 +84,7 @@ function detect_line(act: number): number {
     if (Math.abs(error) < 3000) {
         CutebotPro.pwmCruiseControl(0, 0)
         basic.pause(100)
-        if (act == 0) {
+        if (act == act) {
             straighten_to_line()
         }
         

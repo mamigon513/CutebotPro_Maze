@@ -84,7 +84,7 @@ def detect_line(act):
     if abs(error) < 3000:
         CutebotPro.pwm_cruise_control(0, 0)
         basic.pause(100)
-        if act == 0:
+        if act == act:
             straighten_to_line()
         line = 1
     return line
