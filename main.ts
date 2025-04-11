@@ -6,8 +6,12 @@ let right: number;
 // magnet checking function
 function magnet_detect(): number {
     let mag = 0
-    let force = Math.abs(input.magneticForce(Dimension.Z))
-    if (force >= 400) {
+    let magY = input.magneticForce(Dimension.Y)
+    let magX = input.magneticForce(Dimension.X)
+    let magZ = input.magneticForce(Dimension.Z)
+    let force = Math.pow(magX * magX + magY * magY + magZ * magZ, .5)
+    // force = abs(input.magnetic_force(Dimension.Y))
+    if (force >= 500) {
         mag = 1
         //  turn headlights green
         CutebotPro.colorLight(CutebotProRGBLight.RGBL, 0x00ff00)
@@ -77,7 +81,7 @@ function straighten_to_line() {
     }
 }
 
-function detect_line(act: number): number {
+function detect_line(): number {
     //  get the line tracking offset
     let error = CutebotPro.getOffset()
     let line = 0
@@ -85,10 +89,7 @@ function detect_line(act: number): number {
     if (Math.abs(error) < 3000) {
         CutebotPro.pwmCruiseControl(0, 0)
         basic.pause(100)
-        if (act == act) {
-            straighten_to_line()
-        }
-        
+        straighten_to_line()
         line = 1
     }
     
@@ -229,16 +230,11 @@ function turn_right() {
     basic.pause(100)
 }
 
-// only run the line straightener the first time:
-let activate_line_straight = 0
 function move_forward() {
-    let activate_line_straight: number;
     CutebotPro.pwmCruiseControl(20, 20)
     let line_found = 0
     while (line_found == 0) {
-        line_found = detect_line(activate_line_straight)
-        //  line straightener will never activate again
-        activate_line_straight = 1
+        line_found = detect_line()
     }
     CutebotPro.distanceRunning(CutebotProOrientation.Advance, 20, CutebotProDistanceUnits.Cm)
     basic.pause(100)

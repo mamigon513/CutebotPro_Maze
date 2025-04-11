@@ -3,8 +3,12 @@
 
 def magnet_detect():
     mag = 0
-    force = abs(input.magnetic_force(Dimension.Z))
-    if force >= 400:
+    magY = input.magnetic_force(Dimension.Y)
+    magX = input.magnetic_force(Dimension.X)
+    magZ = input.magnetic_force(Dimension.Z)        
+    force = Math.pow((magX*magX + magY*magY + magZ*magZ), .5)
+    #force = abs(input.magnetic_force(Dimension.Y))
+    if force >= 500:
         mag = 1
          # turn headlights green
         CutebotPro.color_light(CutebotProRGBLight.RGBL, 0x00ff00)
@@ -77,7 +81,7 @@ def straighten_to_line():
         error = CutebotPro.get_offset()
 
 
-def detect_line(act):
+def detect_line():
     # get the line tracking offset
     error = CutebotPro.get_offset()
     line = 0
@@ -85,8 +89,7 @@ def detect_line(act):
     if abs(error) < 3000:
         CutebotPro.pwm_cruise_control(0, 0)
         basic.pause(100)
-        if act == act:
-            straighten_to_line()
+        straighten_to_line()
         line = 1
     return line
 
@@ -223,15 +226,11 @@ def turn_right():
     CutebotPro.trolley_steering(CutebotProTurn.RIGHT_IN_PLACE, 90)
     basic.pause(100)
 
-#only run the line straightener the first time:
-activate_line_straight = 0
 def move_forward():
     CutebotPro.pwm_cruise_control(20, 20)
     line_found = 0
     while line_found == 0:
-        line_found = detect_line(activate_line_straight)
-        # line straightener will never activate again
-        activate_line_straight = 1
+        line_found = detect_line()
     CutebotPro.distance_running(CutebotProOrientation.ADVANCE, 20, CutebotProDistanceUnits.CM)
     basic.pause(100)
 
