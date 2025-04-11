@@ -5,9 +5,9 @@ def magnet_detect():
     mag = 0
     magY = input.magnetic_force(Dimension.Y)
     magX = input.magnetic_force(Dimension.X)
-    magZ = input.magnetic_force(Dimension.Z)        
+    magZ = input.magnetic_force(Dimension.Z)
+    # take the distance so you can sense in any direction        
     force = Math.pow((magX*magX + magY*magY + magZ*magZ), .5)
-    #force = abs(input.magnetic_force(Dimension.Y))
     if force >= 500:
         mag = 1
          # turn headlights green

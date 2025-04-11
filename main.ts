@@ -9,8 +9,8 @@ function magnet_detect(): number {
     let magY = input.magneticForce(Dimension.Y)
     let magX = input.magneticForce(Dimension.X)
     let magZ = input.magneticForce(Dimension.Z)
+    //  take the distance so you can sense in any direction        
     let force = Math.pow(magX * magX + magY * magY + magZ * magZ, .5)
-    // force = abs(input.magnetic_force(Dimension.Y))
     if (force >= 500) {
         mag = 1
         //  turn headlights green
