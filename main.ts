@@ -36,7 +36,7 @@ function missionImpossibleMusic(bpm: number) {
 }
 
 function onIn_background() {
-    music.setVolume(50)
+    music.setVolume(100)
     missionImpossibleMusic(350)
     
 }
@@ -196,8 +196,9 @@ CutebotPro.pwmCruiseControl(0, 0)
 basic.pause(100)
 CutebotPro.turnOffAllHeadlights()
 // # START MAZE
-// CutebotPro.distance_running(CutebotProOrientation.ADVANCE, 15.35, CutebotProDistanceUnits.CM)
-// basic.pause(1000)
+//  be square with maze:
+CutebotPro.trolleySteering(CutebotProTurn.LeftInPlace, 90)
+CutebotPro.distanceRunning(CutebotProOrientation.Advance, 15.35, CutebotProDistanceUnits.Cm)
 // originate maze matrix and depth first search variables
 // N = 5
 // M = 6
@@ -236,11 +237,10 @@ function move_forward() {
     while (line_found == 0) {
         line_found = detect_line()
     }
-    CutebotPro.distanceRunning(CutebotProOrientation.Advance, 20, CutebotProDistanceUnits.Cm)
+    CutebotPro.distanceRunning(CutebotProOrientation.Advance, 15.35, CutebotProDistanceUnits.Cm)
     basic.pause(100)
 }
 
-move_forward()
 // maze navigation before exit magnet is located 
 while (magnet_count < 3) {
     mag = magnet_detect()

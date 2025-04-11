@@ -39,7 +39,7 @@ def missionImpossibleMusic(bpm):
         music.PlaybackMode.UNTIL_DONE)
 
 def onIn_background():
-    music.set_volume(50)
+    music.set_volume(100)
     missionImpossibleMusic(350)
     pass
 #control.in_background(onIn_background)
@@ -190,9 +190,9 @@ CutebotPro.turn_off_all_headlights()
 
 
 ## START MAZE
-#CutebotPro.distance_running(CutebotProOrientation.ADVANCE, 15.35, CutebotProDistanceUnits.CM)
-#basic.pause(1000)
-
+# be square with maze:
+CutebotPro.trolley_steering(CutebotProTurn.LEFT_IN_PLACE, 90)
+CutebotPro.distance_running(CutebotProOrientation.ADVANCE, 15.35, CutebotProDistanceUnits.CM)
 
 #originate maze matrix and depth first search variables
 #N = 5
@@ -231,10 +231,9 @@ def move_forward():
     line_found = 0
     while line_found == 0:
         line_found = detect_line()
-    CutebotPro.distance_running(CutebotProOrientation.ADVANCE, 20, CutebotProDistanceUnits.CM)
+    CutebotPro.distance_running(CutebotProOrientation.ADVANCE, 15.35, CutebotProDistanceUnits.CM)
     basic.pause(100)
 
-move_forward()
 
 
 #maze navigation before exit magnet is located 
