@@ -214,8 +214,16 @@ first_move_done = False
 maze_exit = False
 magnet_count = 1
 
+# function for checking if wall is too close and backing up:
+def check_if_too_close():
+    sonar = CutebotPro.ultrasonic(SonarUnit.CENTIMETERS)
+    if sonar < 5: #check what is too close
+        # move back 5 cm
+        CutebotPro.distance_running(CutebotProOrientation.RETREAT, 5, CutebotProDistanceUnits.CM)
+
 #functions for turning and moving forward
 def check_distance():
+    check_if_too_close()
     return CutebotPro.ultrasonic(SonarUnit.CENTIMETERS)
 
 def turn_left():
@@ -233,7 +241,6 @@ def move_forward():
         line_found = detect_line()
     CutebotPro.distance_running(CutebotProOrientation.ADVANCE, 15.35, CutebotProDistanceUnits.CM)
     basic.pause(100)
-
 
 
 #maze navigation before exit magnet is located 

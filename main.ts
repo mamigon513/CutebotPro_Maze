@@ -216,8 +216,20 @@ let path : number[] = []
 let first_move_done = false
 let maze_exit = false
 let magnet_count = 1
+//  function for checking if wall is too close and backing up:
+function check_if_too_close() {
+    let sonar = CutebotPro.ultrasonic(SonarUnit.Centimeters)
+    if (sonar < 5) {
+        // check what is too close
+        //  move back 5 cm
+        CutebotPro.distanceRunning(CutebotProOrientation.Retreat, 5, CutebotProDistanceUnits.Cm)
+    }
+    
+}
+
 // functions for turning and moving forward
 function check_distance(): number {
+    check_if_too_close()
     return CutebotPro.ultrasonic(SonarUnit.Centimeters)
 }
 
