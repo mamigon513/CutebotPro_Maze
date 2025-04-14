@@ -1,6 +1,5 @@
 ## MAGNET DETECTION
 #magnet checking function
-
 def magnet_detect():
     mag = 0
     magY = input.magnetic_force(Dimension.Y)
@@ -180,7 +179,6 @@ def follow_line():
  
 
 #Run line follow till magnet detected then stop
-
 while (magnet_detect() == 0):
    follow_line()
 #stop robot
@@ -194,19 +192,8 @@ CutebotPro.turn_off_all_headlights()
 CutebotPro.trolley_steering(CutebotProTurn.LEFT_IN_PLACE, 90)
 CutebotPro.distance_running(CutebotProOrientation.ADVANCE, 15.35, CutebotProDistanceUnits.CM)
 
-#originate maze matrix and depth first search variables
-#N = 5
-#M = 6
-#field = []
-#for j in range(N):
-    #row = []
-    #for i in range(M):
-        #row.append(0)
-    #field.append(row)
-
-grid_type: List[number] = [] #Java script, defines array as an integer array
-intersection: List[number] = []
-
+#grid_type: List[number] = [] #Java script, defines array as an integer array
+#intersection: List[number] = []
 
 #originate empty path taken
 path: List[number] = [] 
@@ -252,6 +239,7 @@ while magnet_count < 3:
        #magnet inside maze located
        if magnet_count == 2:
            path.append(4)
+           basic.show_number(4)
     
     #end mazed navigation
     if magnet_count == 3:
@@ -266,6 +254,7 @@ while magnet_count < 3:
         if left > 16:
             move_forward()
             path.append(2)
+            basic.show_number(2)
         else:
         # Look forward
             turn_right()
@@ -274,6 +263,7 @@ while magnet_count < 3:
             if front > 16:
                 move_forward()
                 path.append(1)
+                basic.show_number(1)
             else:
             # Look right
                 turn_right()
@@ -282,11 +272,13 @@ while magnet_count < 3:
                 if right > 16:
                     move_forward()
                     path.append(3)
+                    basic.show_number(3)
                 else:
                     # Dead end
                     turn_right()
                     move_forward()
                     path.append(0)
+                    basic.show_number(0)
 
             
 
